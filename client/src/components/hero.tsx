@@ -3,14 +3,32 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import UserWaitlistForm from "@/components/forms/user-waitlist-form";
 import VendorWaitlistForm from "./forms/vendor-waitlist-form";
+import heroVideo from "@assets/video_1758488652751.mp4";
 
 export default function Hero() {
   const [showUserForm, setShowUserForm] = useState(false);
   const [showVendorForm, setShowVendorForm] = useState(false);
   const [isAnimationStarted, setIsAnimationStarted] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const heroVisualRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches);
+      if (e.matches && videoRef.current) {
+        videoRef.current.pause();
+      } else if (!e.matches && videoRef.current) {
+        videoRef.current.play();
+      }
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -29,7 +47,10 @@ export default function Hero() {
       observer.observe(heroVisualRef.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      mediaQuery.removeEventListener('change', handleChange);
+    };
   }, [isAnimationStarted]);
 
   useEffect(() => {
@@ -89,14 +110,21 @@ export default function Hero() {
   return (
     <>
       <section className="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-teal-100 via-teal-50 to-purple-100" data-testid="hero-section">
-        {/* Floating geometric shapes background */}
+        {/* Background Video */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="floating-shapes">
-            <div className="shape shape-1"></div>
-            <div className="shape shape-2"></div>
-            <div className="shape shape-3"></div>
-            <div className="shape shape-4"></div>
-          </div>
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            autoPlay={!reducedMotion}
+            loop
+            muted
+            playsInline
+            poster={reducedMotion ? "" : undefined}
+          >
+            <source src={heroVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <div className="absolute inset-0 bg-black bg-opacity-20 z-10"></div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
@@ -130,106 +158,18 @@ export default function Hero() {
               </div>
             </div>
             
-            {/* Simple 2.5D Room Animation */}
+            {/* Hero Content Space */}
             <div className="mt-12 lg:mt-0">
               <div className="relative h-96 lg:h-[500px] flex items-center justify-center">
-                {/* Main Animation Container */}
                 <div 
                   ref={heroVisualRef}
-                  className="simple-room-visual w-full h-full max-w-lg transition-transform duration-300 ease-out" 
-                  data-testid="room-animation"
+                  className="w-full h-full max-w-lg transition-transform duration-300 ease-out flex items-center justify-center" 
+                  data-testid="hero-content"
                 >
-                  <svg 
-                    viewBox="0 0 400 300" 
-                    className="w-full h-full drop-shadow-lg"
-                  >
-                    <defs>
-                      <linearGradient id="roomGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f1f5f9" />
-                        <stop offset="100%" stopColor="#e2e8f0" />
-                      </linearGradient>
-                      <linearGradient id="floorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#cbd5e1" />
-                        <stop offset="100%" stopColor="#94a3b8" />
-                      </linearGradient>
-                    </defs>
-                    
-                    {/* Simple 2.5D Room Outline */}
-                    <g className="room-walls">
-                      {/* Floor */}
-                      <path 
-                        d="M 80 200 L 320 200 L 300 240 L 100 240 Z" 
-                        fill="url(#floorGradient)"
-                        stroke="#64748b" 
-                        strokeWidth="2"
-                        className="room-floor draw-line"
-                        opacity="0"
-                      />
-                      
-                      {/* Back Wall */}
-                      <path 
-                        d="M 80 200 L 320 200 L 320 80 L 80 80 Z" 
-                        fill="url(#roomGradient)"
-                        stroke="#64748b" 
-                        strokeWidth="2"
-                        className="room-back-wall draw-line"
-                        opacity="0"
-                      />
-                      
-                      {/* Side Wall */}
-                      <path 
-                        d="M 80 200 L 100 240 L 100 120 L 80 80 Z" 
-                        fill="#e2e8f0"
-                        stroke="#64748b" 
-                        strokeWidth="2"
-                        className="room-side-wall draw-line"
-                        opacity="0"
-                      />
-                    </g>
-                    
-                    {/* Furniture Icons */}
-                    <g className="furniture-icons">
-                      {/* Chair */}
-                      <g className="furniture-item chair" transform="translate(-50, 0)">
-                        <rect x="120" y="160" width="30" height="30" rx="5" fill="#3b82f6" opacity="0.8"/>
-                        <rect x="125" y="155" width="20" height="10" rx="2" fill="#2563eb"/>
-                      </g>
-                      
-                      {/* Table */}
-                      <g className="furniture-item table" transform="translate(50, 0)">
-                        <ellipse cx="200" cy="180" rx="25" ry="15" fill="#8b5cf6" opacity="0.8"/>
-                        <rect x="195" y="180" width="10" height="20" fill="#7c3aed"/>
-                      </g>
-                      
-                      {/* Plant */}
-                      <g className="furniture-item plant" transform="translate(50, 0)">
-                        <ellipse cx="280" cy="170" rx="8" ry="5" fill="#dc2626"/>
-                        <path d="M 280 170 Q 275 155 280 145 Q 285 155 280 170" fill="#10b981"/>
-                      </g>
-                    </g>
-                    
-                    {/* AI Recommendation Dots */}
-                    <g className="ai-dots">
-                      <circle className="ai-dot dot-1" cx="135" cy="175" r="3" fill="#fbbf24" opacity="0"/>
-                      <circle className="ai-dot dot-2" cx="200" cy="180" r="3" fill="#fbbf24" opacity="0"/>
-                      <circle className="ai-dot dot-3" cx="280" cy="160" r="3" fill="#fbbf24" opacity="0"/>
-                    </g>
-                    
-                    {/* AI Sidebar */}
-                    <g className="ai-sidebar">
-                      <rect x="350" y="80" width="40" height="120" rx="10" fill="rgba(59,130,246,0.1)" stroke="#3b82f6" strokeWidth="2" opacity="0" className="sidebar-bg"/>
-                      <text x="370" y="100" textAnchor="middle" fill="#3b82f6" fontSize="8" fontWeight="600" opacity="0" className="sidebar-text">AI</text>
-                      <text x="370" y="115" textAnchor="middle" fill="#3b82f6" fontSize="8" fontWeight="600" opacity="0" className="sidebar-text">RECS</text>
-                    </g>
-                    
-                    {/* Glowing Dot Paths */}
-                    <g className="dot-paths">
-                      <path d="M 135 175 Q 200 150 350 140" fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0" className="glow-path path-1"/>
-                      <path d="M 200 180 Q 250 160 350 150" fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0" className="glow-path path-2"/>
-                      <path d="M 280 160 Q 300 140 350 160" fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0" className="glow-path path-3"/>
-                    </g>
-                    
-                  </svg>
+                  <div className="text-center p-8 bg-white bg-opacity-10 backdrop-blur-sm rounded-lg border border-white border-opacity-20">
+                    <h3 className="text-2xl font-bold text-white mb-4">Experience A2S</h3>
+                    <p className="text-white text-opacity-90">Transform spaces with intelligent design</p>
+                  </div>
                 </div>
               </div>
             </div>
