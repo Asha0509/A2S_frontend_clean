@@ -209,6 +209,166 @@
   .animate-spin-slow {
     animation: spin-slow 8s linear infinite;
   }
+
+  /* PropTech Hero Animation Keyframes */
+  @keyframes blueprintDraw {
+    from { stroke-dashoffset: 800; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes blueprintDrawWall {
+    from { stroke-dashoffset: 600; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes blueprintDrawSide {
+    from { stroke-dashoffset: 400; }
+    to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes fadeInUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes gridReveal {
+    from { opacity: 0; }
+    to { opacity: 0.3; }
+  }
+
+  @keyframes lift3D {
+    from { transform: translateZ(0px) rotateX(0deg); }
+    to { transform: translateZ(10px) rotateX(2deg); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { 
+      filter: drop-shadow(0 0 5px currentColor); 
+      transform: scale(1);
+    }
+    50% { 
+      filter: drop-shadow(0 0 15px currentColor); 
+      transform: scale(1.1);
+    }
+  }
+
+  @keyframes dataFlow {
+    0% { stroke-dashoffset: 100; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  /* PropTech Animation States */
+  .proptech-hero-visual {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+
+  /* Grid Background - Only on viewport entry */
+  .proptech-hero-visual.active .grid-bg {
+    animation: gridReveal 0.5s ease-out 0.2s forwards;
+  }
+
+  /* Blueprint Drawing Phase - Only on viewport entry */
+  .proptech-hero-visual.active .blueprint-floor {
+    animation: blueprintDraw 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+  }
+
+  .proptech-hero-visual.active .blueprint-wall {
+    animation: blueprintDrawWall 1.0s cubic-bezier(0.22, 1, 0.36, 1) 1.0s forwards;
+  }
+
+  .proptech-hero-visual.active .blueprint-side {
+    animation: blueprintDrawSide 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.3s forwards;
+  }
+
+  /* Reality Transformation Phase - Only on viewport entry */
+  .proptech-hero-visual.active .reality-layer {
+    animation: fadeIn 0.8s ease-out 2.0s forwards;
+  }
+
+  .proptech-hero-visual.active .furniture-layer {
+    animation: fadeInUp 1.0s cubic-bezier(0.22, 1, 0.36, 1) 2.5s forwards;
+  }
+
+  .proptech-hero-visual.active .smart-layer {
+    animation: fadeIn 0.6s ease-out 3.2s forwards;
+  }
+
+  .proptech-hero-visual.active .hub-layer {
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 3.5s forwards;
+  }
+
+  /* 3D Lift Effect */
+  .proptech-hero-visual.active .room-3d-group {
+    animation: lift3D 1.0s cubic-bezier(0.22, 1, 0.36, 1) 3.8s forwards;
+  }
+
+  /* Smart Sensor Pulses */
+  .proptech-hero-visual .sensor {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  .proptech-hero-visual .temp-sensor {
+    animation-delay: 0s;
+  }
+
+  .proptech-hero-visual .motion-sensor {
+    animation-delay: 0.5s;
+  }
+
+  .proptech-hero-visual .light-sensor {
+    animation-delay: 1s;
+  }
+
+  /* Data Flow - CSS Only */
+  .proptech-hero-visual.active .data-flow-1,
+  .proptech-hero-visual.active .data-flow-2 {
+    stroke-dasharray: 20 80;
+    animation: dataFlow 3s ease-in-out 4s infinite;
+  }
+
+  .proptech-hero-visual.active .data-flow-2 {
+    animation-delay: 5s;
+  }
+
+  /* Accessibility - Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .proptech-hero-visual.active .grid-bg { 
+      opacity: 0.3; 
+      animation: none; 
+    }
+    .proptech-hero-visual.active .blueprint-floor,
+    .proptech-hero-visual.active .blueprint-wall,
+    .proptech-hero-visual.active .blueprint-side { 
+      stroke-dashoffset: 0; 
+      animation: none; 
+    }
+    .proptech-hero-visual.active .reality-layer,
+    .proptech-hero-visual.active .furniture-layer,
+    .proptech-hero-visual.active .smart-layer,
+    .proptech-hero-visual.active .hub-layer { 
+      opacity: 1; 
+      animation: none; 
+    }
+    .proptech-hero-visual .sensor { 
+      animation: none; 
+    }
+    .proptech-hero-visual.active .data-flow-1,
+    .proptech-hero-visual.active .data-flow-2 { 
+      animation: none; 
+    }
+  }
   
   /* Animation Delays */
   .animation-delay-1000 {

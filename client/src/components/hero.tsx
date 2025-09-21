@@ -1,12 +1,89 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Home, Layers3, Palette, Box, Camera, Smartphone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import UserWaitlistForm from "@/components/forms/user-waitlist-form";
 import VendorWaitlistForm from "./forms/vendor-waitlist-form";
 
 export default function Hero() {
   const [showUserForm, setShowUserForm] = useState(false);
   const [showVendorForm, setShowVendorForm] = useState(false);
+  const [isAnimationStarted, setIsAnimationStarted] = useState(false);
+  const heroVisualRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isAnimationStarted) {
+            setIsAnimationStarted(true);
+            if (heroVisualRef.current) {
+              heroVisualRef.current.classList.add('active');
+            }
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (heroVisualRef.current) {
+      observer.observe(heroVisualRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [isAnimationStarted]);
+
+  useEffect(() => {
+    let animationFrame: number;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroVisualRef.current) return;
+      
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      
+      animationFrame = requestAnimationFrame(() => {
+        if (!heroVisualRef.current) return;
+        
+        const rect = heroVisualRef.current.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const deltaX = (e.clientX - centerX) / rect.width;
+        const deltaY = (e.clientY - centerY) / rect.height;
+        
+        // Cap rotation for smoother experience
+        const rotateX = Math.max(-4, Math.min(4, deltaY * -4));
+        const rotateY = Math.max(-4, Math.min(4, deltaX * 4));
+        
+        heroVisualRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+    };
+
+    const handleMouseLeave = () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      if (heroVisualRef.current) {
+        heroVisualRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      }
+    };
+
+    if (heroVisualRef.current) {
+      heroVisualRef.current.addEventListener('mousemove', handleMouseMove);
+      heroVisualRef.current.addEventListener('mouseleave', handleMouseLeave);
+    }
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+      if (heroVisualRef.current) {
+        heroVisualRef.current.removeEventListener('mousemove', handleMouseMove);
+        heroVisualRef.current.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
   
 
   return (
@@ -49,7 +126,11 @@ export default function Hero() {
             <div className="mt-12 lg:mt-0">
               <div className="relative h-96 lg:h-[500px] flex items-center justify-center">
                 {/* Main Animation Container */}
-                <div className="proptech-hero-visual w-full h-full max-w-lg" data-testid="proptech-animation">
+                <div 
+                  ref={heroVisualRef}
+                  className="proptech-hero-visual w-full h-full max-w-lg transition-transform duration-300 ease-out" 
+                  data-testid="proptech-animation"
+                >
                   <svg 
                     viewBox="0 0 400 300" 
                     className="w-full h-full drop-shadow-2xl"
@@ -74,6 +155,13 @@ export default function Hero() {
                         <stop offset="100%" stopColor="#1d4ed8" />
                       </linearGradient>
                       
+                      {/* AR Sweep Gradient */}
+                      <linearGradient id="arSweep" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(59,130,246,0)" />
+                        <stop offset="50%" stopColor="rgba(59,130,246,0.3)" />
+                        <stop offset="100%" stopColor="rgba(59,130,246,0)" />
+                      </linearGradient>
+                      
                       {/* Grid Pattern */}
                       <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
                         <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a3b8" strokeWidth="0.5" opacity="0.3"/>
@@ -87,11 +175,6 @@ export default function Hero() {
                           <feMergeNode in="SourceGraphic"/>
                         </feMerge>
                       </filter>
-                      
-                      {/* Mask for reveal */}
-                      <mask id="revealMask">
-                        <rect width="400" height="300" fill="white" className="reveal-rect"/>
-                      </mask>
                     </defs>
                     
                     {/* Background Grid */}
@@ -134,28 +217,30 @@ export default function Hero() {
                     </g>
                     
                     {/* Room Structure - Reality Phase */}
-                    <g className="reality-layer" opacity="0">
-                      {/* Floor */}
-                      <path 
-                        d="M 50 200 L 350 200 L 320 250 L 80 250 Z" 
-                        fill="url(#floorGradient)"
-                        className="room-floor"
-                      />
-                      
-                      {/* Back Wall */}
-                      <path 
-                        d="M 50 200 L 350 200 L 350 80 L 50 80 Z" 
-                        fill="url(#wallGradient)"
-                        className="room-wall"
-                      />
-                      
-                      {/* Side Wall */}
-                      <path 
-                        d="M 50 200 L 80 250 L 80 130 L 50 80 Z" 
-                        fill="url(#wallGradient)"
-                        className="room-side"
-                        opacity="0.8"
-                      />
+                    <g className="reality-layer" opacity="0" style={{ willChange: 'transform' }}>
+                      <g className="room-3d-group">
+                        {/* Floor */}
+                        <path 
+                          d="M 50 200 L 350 200 L 320 250 L 80 250 Z" 
+                          fill="url(#floorGradient)"
+                          className="room-floor"
+                        />
+                        
+                        {/* Back Wall */}
+                        <path 
+                          d="M 50 200 L 350 200 L 350 80 L 50 80 Z" 
+                          fill="url(#wallGradient)"
+                          className="room-wall"
+                        />
+                        
+                        {/* Side Wall */}
+                        <path 
+                          d="M 50 200 L 80 250 L 80 130 L 50 80 Z" 
+                          fill="url(#wallGradient)"
+                          className="room-side"
+                          opacity="0.8"
+                        />
+                      </g>
                     </g>
                     
                     {/* Furniture - Reality Phase */}
@@ -179,36 +264,24 @@ export default function Hero() {
                     {/* Smart Tech Sensors */}
                     <g className="smart-layer" opacity="0">
                       {/* Temperature Sensor */}
-                      <circle cx="100" cy="120" r="3" fill="#ef4444" className="sensor temp-sensor">
-                        <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
-                      </circle>
+                      <circle cx="100" cy="120" r="3" fill="#ef4444" className="sensor temp-sensor" />
                       
                       {/* Motion Sensor */}
-                      <circle cx="300" cy="110" r="3" fill="#22c55e" className="sensor motion-sensor">
-                        <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite"/>
-                      </circle>
+                      <circle cx="300" cy="110" r="3" fill="#22c55e" className="sensor motion-sensor" />
                       
                       {/* Light Sensor */}
-                      <circle cx="200" cy="90" r="3" fill="#eab308" className="sensor light-sensor">
-                        <animate attributeName="r" values="3;5;3" dur="1.8s" repeatCount="indefinite"/>
-                      </circle>
+                      <circle cx="200" cy="90" r="3" fill="#eab308" className="sensor light-sensor" />
                       
-                      {/* Data Flow Lines */}
-                      <path d="M 100 120 Q 150 100 200 90" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.5" className="data-flow-1">
-                        <animate attributeName="stroke-dasharray" values="0,100;20,80;0,100" dur="3s" repeatCount="indefinite"/>
-                      </path>
-                      <path d="M 300 110 Q 250 95 200 90" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.5" className="data-flow-2">
-                        <animate attributeName="stroke-dasharray" values="0,100;20,80;0,100" dur="3.5s" repeatCount="indefinite"/>
-                      </path>
+                      {/* Data Flow Lines - CSS animations only */}
+                      <path d="M 100 120 Q 150 100 200 90" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.5" className="data-flow-1" />
+                      <path d="M 300 110 Q 250 95 200 90" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.5" className="data-flow-2" />
                     </g>
                     
                     {/* A2S Hub Badge */}
                     <g className="hub-layer" opacity="0">
                       <rect x="170" y="40" width="60" height="24" rx="12" fill="rgba(59,130,246,0.1)" stroke="#3b82f6" strokeWidth="1" className="hub-badge"/>
                       <text x="200" y="54" textAnchor="middle" fill="#3b82f6" fontSize="10" fontWeight="600" className="hub-text">A2S</text>
-                      <circle cx="185" cy="52" r="2" fill="#10b981" className="hub-indicator">
-                        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
-                      </circle>
+                      <circle cx="185" cy="52" r="2" fill="#10b981" className="hub-indicator" />
                     </g>
                     
                     {/* AR Overlay Effect */}
