@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import UserWaitlistForm from "@/components/forms/user-waitlist-form";
 import VendorWaitlistForm from "./forms/vendor-waitlist-form";
-import heroVideo from "@assets/video_1758488652751.mp4";
+import heroVideo from "@assets/video (1)_1758489405597.mp4";
 
 export default function Hero() {
   const [showUserForm, setShowUserForm] = useState(false);
@@ -158,18 +158,15 @@ export default function Hero() {
               </div>
             </div>
             
-            {/* Hero Content Space */}
+            {/* Empty right column */}
             <div className="mt-12 lg:mt-0">
               <div className="relative h-96 lg:h-[500px] flex items-center justify-center">
                 <div 
                   ref={heroVisualRef}
-                  className="w-full h-full max-w-lg transition-transform duration-300 ease-out flex items-center justify-center" 
+                  className="w-full h-full max-w-lg transition-transform duration-300 ease-out" 
                   data-testid="hero-content"
                 >
-                  <div className="text-center p-8 bg-white bg-opacity-10 backdrop-blur-sm rounded-lg border border-white border-opacity-20">
-                    <h3 className="text-2xl font-bold text-white mb-4">Experience A2S</h3>
-                    <p className="text-white text-opacity-90">Transform spaces with intelligent design</p>
-                  </div>
+                  {/* Empty space */}
                 </div>
               </div>
             </div>
