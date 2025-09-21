@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Home, Layers3, Palette, Box, Camera, Smartphone } from "lucide-react";
 import UserWaitlistForm from "@/components/forms/user-waitlist-form";
 import VendorWaitlistForm from "./forms/vendor-waitlist-form";
 
@@ -45,17 +45,72 @@ export default function Hero() {
               </div>
             </div>
             
-            {/* Simple Elegant Visual */}
+            {/* PropTech Animation Visual */}
             <div className="mt-12 lg:mt-0">
               <div className="relative h-96 lg:h-[500px] flex items-center justify-center">
-                {/* Central Decorative Element */}
+                {/* Background Glow */}
+                <div className="absolute w-80 h-80 rounded-full bg-gradient-to-r from-blue-400/10 to-emerald-400/10 blur-3xl animate-pulse"></div>
+                
+                {/* Central Hub - Represents the A2S Platform */}
                 <div className="relative">
-                  <div className="w-72 h-72 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 blur-3xl animate-pulse"></div>
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-r from-blue-500/30 to-emerald-500/30 animate-spin-slow flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center">
-                      <Sparkles className="w-8 h-8 text-blue-600" />
+                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-emerald-500 shadow-2xl flex items-center justify-center animate-pulse">
+                    <Home className="w-12 h-12 text-white" />
+                  </div>
+                  
+                  {/* Floating PropTech Elements */}
+                  {/* Floor Plans - Top */}
+                  <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 animate-bounce delay-100">
+                    <div className="w-12 h-12 rounded-lg bg-white shadow-lg border border-blue-200 flex items-center justify-center hover:scale-110 transition-transform">
+                      <Layers3 className="w-6 h-6 text-blue-600" />
                     </div>
                   </div>
+                  
+                  {/* Design Palette - Top Right */}
+                  <div className="absolute -top-12 -right-12 animate-float delay-200">
+                    <div className="w-10 h-10 rounded-full bg-white shadow-lg border border-purple-200 flex items-center justify-center hover:scale-110 transition-transform">
+                      <Palette className="w-5 h-5 text-purple-600" />
+                    </div>
+                  </div>
+                  
+                  {/* 3D/AR Visualization - Right */}
+                  <div className="absolute top-1/2 -right-16 transform -translate-y-1/2 animate-bounce delay-300">
+                    <div className="w-12 h-12 rounded-lg bg-white shadow-lg border border-emerald-200 flex items-center justify-center hover:scale-110 transition-transform">
+                      <Box className="w-6 h-6 text-emerald-600" />
+                    </div>
+                  </div>
+                  
+                  {/* Property Photography - Bottom Right */}
+                  <div className="absolute -bottom-12 -right-8 animate-float delay-400">
+                    <div className="w-10 h-10 rounded-full bg-white shadow-lg border border-indigo-200 flex items-center justify-center hover:scale-110 transition-transform">
+                      <Camera className="w-5 h-5 text-indigo-600" />
+                    </div>
+                  </div>
+                  
+                  {/* Mobile App - Bottom */}
+                  <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 animate-bounce delay-500">
+                    <div className="w-12 h-12 rounded-lg bg-white shadow-lg border border-cyan-200 flex items-center justify-center hover:scale-110 transition-transform">
+                      <Smartphone className="w-6 h-6 text-cyan-600" />
+                    </div>
+                  </div>
+                  
+                  {/* Connection Lines */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    <svg className="w-full h-full animate-pulse" viewBox="0 0 200 200">
+                      <defs>
+                        <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3"/>
+                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.3"/>
+                        </linearGradient>
+                      </defs>
+                      {/* Connecting lines from center to floating elements */}
+                      <line x1="100" y1="100" x2="100" y2="50" stroke="url(#connectionGradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse"/>
+                      <line x1="100" y1="100" x2="150" y2="100" stroke="url(#connectionGradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse"/>
+                      <line x1="100" y1="100" x2="100" y2="150" stroke="url(#connectionGradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse"/>
+                    </svg>
+                  </div>
+                  
+                  {/* Orbital Ring */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-blue-200/30 rounded-full animate-spin-slow"></div>
                 </div>
               </div>
             </div>
