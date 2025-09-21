@@ -45,72 +45,176 @@ export default function Hero() {
               </div>
             </div>
             
-            {/* PropTech Animation Visual */}
+            {/* Blueprint to Reality PropTech Animation */}
             <div className="mt-12 lg:mt-0">
               <div className="relative h-96 lg:h-[500px] flex items-center justify-center">
-                {/* Background Glow */}
-                <div className="absolute w-80 h-80 rounded-full bg-gradient-to-r from-blue-400/10 to-emerald-400/10 blur-3xl animate-pulse"></div>
-                
-                {/* Central Hub - Represents the A2S Platform */}
-                <div className="relative">
-                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-emerald-500 shadow-2xl flex items-center justify-center animate-pulse">
-                    <Home className="w-12 h-12 text-white" />
-                  </div>
-                  
-                  {/* Floating PropTech Elements */}
-                  {/* Floor Plans - Top */}
-                  <div className="absolute -top-16 left-1/2 transform -translate-x-1/2 animate-bounce delay-100">
-                    <div className="w-12 h-12 rounded-lg bg-white shadow-lg border border-blue-200 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Layers3 className="w-6 h-6 text-blue-600" />
-                    </div>
-                  </div>
-                  
-                  {/* Design Palette - Top Right */}
-                  <div className="absolute -top-12 -right-12 animate-float delay-200">
-                    <div className="w-10 h-10 rounded-full bg-white shadow-lg border border-purple-200 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Palette className="w-5 h-5 text-purple-600" />
-                    </div>
-                  </div>
-                  
-                  {/* 3D/AR Visualization - Right */}
-                  <div className="absolute top-1/2 -right-16 transform -translate-y-1/2 animate-bounce delay-300">
-                    <div className="w-12 h-12 rounded-lg bg-white shadow-lg border border-emerald-200 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Box className="w-6 h-6 text-emerald-600" />
-                    </div>
-                  </div>
-                  
-                  {/* Property Photography - Bottom Right */}
-                  <div className="absolute -bottom-12 -right-8 animate-float delay-400">
-                    <div className="w-10 h-10 rounded-full bg-white shadow-lg border border-indigo-200 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Camera className="w-5 h-5 text-indigo-600" />
-                    </div>
-                  </div>
-                  
-                  {/* Mobile App - Bottom */}
-                  <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 animate-bounce delay-500">
-                    <div className="w-12 h-12 rounded-lg bg-white shadow-lg border border-cyan-200 flex items-center justify-center hover:scale-110 transition-transform">
-                      <Smartphone className="w-6 h-6 text-cyan-600" />
-                    </div>
-                  </div>
-                  
-                  {/* Connection Lines */}
-                  <div className="absolute inset-0 pointer-events-none">
-                    <svg className="w-full h-full animate-pulse" viewBox="0 0 200 200">
-                      <defs>
-                        <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3"/>
-                          <stop offset="100%" stopColor="#10b981" stopOpacity="0.3"/>
-                        </linearGradient>
-                      </defs>
-                      {/* Connecting lines from center to floating elements */}
-                      <line x1="100" y1="100" x2="100" y2="50" stroke="url(#connectionGradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse"/>
-                      <line x1="100" y1="100" x2="150" y2="100" stroke="url(#connectionGradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse"/>
-                      <line x1="100" y1="100" x2="100" y2="150" stroke="url(#connectionGradient)" strokeWidth="2" strokeDasharray="5,5" className="animate-pulse"/>
-                    </svg>
-                  </div>
-                  
-                  {/* Orbital Ring */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-blue-200/30 rounded-full animate-spin-slow"></div>
+                {/* Main Animation Container */}
+                <div className="proptech-hero-visual w-full h-full max-w-lg" data-testid="proptech-animation">
+                  <svg 
+                    viewBox="0 0 400 300" 
+                    className="w-full h-full drop-shadow-2xl"
+                    style={{ filter: 'drop-shadow(0 25px 50px rgba(0,0,0,0.15))' }}
+                  >
+                    <defs>
+                      {/* Gradients */}
+                      <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f8fafc" />
+                        <stop offset="100%" stopColor="#e2e8f0" />
+                      </linearGradient>
+                      <linearGradient id="floorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#1e293b" />
+                        <stop offset="100%" stopColor="#334155" />
+                      </linearGradient>
+                      <radialGradient id="lightGradient" cx="50%" cy="30%" r="70%">
+                        <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.3" />
+                      </radialGradient>
+                      <linearGradient id="sofaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#1d4ed8" />
+                      </linearGradient>
+                      
+                      {/* Grid Pattern */}
+                      <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a3b8" strokeWidth="0.5" opacity="0.3"/>
+                      </pattern>
+                      
+                      {/* Pulse Effect */}
+                      <filter id="glow">
+                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                        <feMerge> 
+                          <feMergeNode in="coloredBlur"/>
+                          <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                      </filter>
+                      
+                      {/* Mask for reveal */}
+                      <mask id="revealMask">
+                        <rect width="400" height="300" fill="white" className="reveal-rect"/>
+                      </mask>
+                    </defs>
+                    
+                    {/* Background Grid */}
+                    <rect width="400" height="300" fill="url(#gridPattern)" className="grid-bg" opacity="0"/>
+                    
+                    {/* Room Structure - Blueprint Phase */}
+                    <g className="blueprint-layer">
+                      {/* Floor */}
+                      <path 
+                        d="M 50 200 L 350 200 L 320 250 L 80 250 Z" 
+                        fill="none" 
+                        stroke="#3b82f6" 
+                        strokeWidth="2"
+                        className="blueprint-floor"
+                        strokeDasharray="800"
+                        strokeDashoffset="800"
+                      />
+                      
+                      {/* Back Wall */}
+                      <path 
+                        d="M 50 200 L 350 200 L 350 80 L 50 80 Z" 
+                        fill="none" 
+                        stroke="#3b82f6" 
+                        strokeWidth="2"
+                        className="blueprint-wall"
+                        strokeDasharray="600"
+                        strokeDashoffset="600"
+                      />
+                      
+                      {/* Side Walls */}
+                      <path 
+                        d="M 50 200 L 80 250 L 80 130 L 50 80 Z" 
+                        fill="none" 
+                        stroke="#3b82f6" 
+                        strokeWidth="2"
+                        className="blueprint-side"
+                        strokeDasharray="400"
+                        strokeDashoffset="400"
+                      />
+                    </g>
+                    
+                    {/* Room Structure - Reality Phase */}
+                    <g className="reality-layer" opacity="0">
+                      {/* Floor */}
+                      <path 
+                        d="M 50 200 L 350 200 L 320 250 L 80 250 Z" 
+                        fill="url(#floorGradient)"
+                        className="room-floor"
+                      />
+                      
+                      {/* Back Wall */}
+                      <path 
+                        d="M 50 200 L 350 200 L 350 80 L 50 80 Z" 
+                        fill="url(#wallGradient)"
+                        className="room-wall"
+                      />
+                      
+                      {/* Side Wall */}
+                      <path 
+                        d="M 50 200 L 80 250 L 80 130 L 50 80 Z" 
+                        fill="url(#wallGradient)"
+                        className="room-side"
+                        opacity="0.8"
+                      />
+                    </g>
+                    
+                    {/* Furniture - Reality Phase */}
+                    <g className="furniture-layer" opacity="0">
+                      {/* Sofa */}
+                      <rect x="120" y="180" width="80" height="15" rx="7" fill="url(#sofaGradient)" className="sofa"/>
+                      <rect x="125" y="175" width="70" height="8" rx="4" fill="#2563eb" className="sofa-back"/>
+                      
+                      {/* Coffee Table */}
+                      <ellipse cx="200" cy="220" rx="25" ry="12" fill="#8b5cf6" className="table"/>
+                      
+                      {/* Plant */}
+                      <ellipse cx="280" cy="190" rx="8" ry="4" fill="#dc2626" className="pot"/>
+                      <path d="M 280 190 Q 275 175 280 160 Q 285 175 280 190" fill="#10b981" className="plant"/>
+                      
+                      {/* Pendant Light */}
+                      <circle cx="200" cy="100" r="8" fill="#f59e0b" className="light-fixture"/>
+                      <circle cx="200" cy="140" r="20" fill="url(#lightGradient)" opacity="0.6" className="light-glow"/>
+                    </g>
+                    
+                    {/* Smart Tech Sensors */}
+                    <g className="smart-layer" opacity="0">
+                      {/* Temperature Sensor */}
+                      <circle cx="100" cy="120" r="3" fill="#ef4444" className="sensor temp-sensor">
+                        <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+                      </circle>
+                      
+                      {/* Motion Sensor */}
+                      <circle cx="300" cy="110" r="3" fill="#22c55e" className="sensor motion-sensor">
+                        <animate attributeName="r" values="3;5;3" dur="2.5s" repeatCount="indefinite"/>
+                      </circle>
+                      
+                      {/* Light Sensor */}
+                      <circle cx="200" cy="90" r="3" fill="#eab308" className="sensor light-sensor">
+                        <animate attributeName="r" values="3;5;3" dur="1.8s" repeatCount="indefinite"/>
+                      </circle>
+                      
+                      {/* Data Flow Lines */}
+                      <path d="M 100 120 Q 150 100 200 90" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.5" className="data-flow-1">
+                        <animate attributeName="stroke-dasharray" values="0,100;20,80;0,100" dur="3s" repeatCount="indefinite"/>
+                      </path>
+                      <path d="M 300 110 Q 250 95 200 90" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.5" className="data-flow-2">
+                        <animate attributeName="stroke-dasharray" values="0,100;20,80;0,100" dur="3.5s" repeatCount="indefinite"/>
+                      </path>
+                    </g>
+                    
+                    {/* A2S Hub Badge */}
+                    <g className="hub-layer" opacity="0">
+                      <rect x="170" y="40" width="60" height="24" rx="12" fill="rgba(59,130,246,0.1)" stroke="#3b82f6" strokeWidth="1" className="hub-badge"/>
+                      <text x="200" y="54" textAnchor="middle" fill="#3b82f6" fontSize="10" fontWeight="600" className="hub-text">A2S</text>
+                      <circle cx="185" cy="52" r="2" fill="#10b981" className="hub-indicator">
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                      </circle>
+                    </g>
+                    
+                    {/* AR Overlay Effect */}
+                    <rect x="0" y="0" width="400" height="300" fill="url(#arSweep)" opacity="0" className="ar-sweep"/>
+                    
+                  </svg>
                 </div>
               </div>
             </div>
