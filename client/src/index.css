@@ -309,6 +309,18 @@
     animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 3.5s forwards;
   }
 
+  .proptech-hero-visual.active .particles-layer {
+    animation: fadeIn 0.6s ease-out 4.0s forwards;
+  }
+
+  .proptech-hero-visual.active .holo-layer {
+    animation: fadeIn 0.8s ease-out 4.2s forwards;
+  }
+
+  .proptech-hero-visual.active .depth-layer {
+    animation: fadeIn 0.6s ease-out 2.8s forwards;
+  }
+
   /* 3D Lift Effect */
   .proptech-hero-visual.active .room-3d-group {
     animation: lift3D 1.0s cubic-bezier(0.22, 1, 0.36, 1) 3.8s forwards;
@@ -342,6 +354,83 @@
     animation-delay: 5s;
   }
 
+  /* Advanced Animation Effects */
+  @keyframes floatParticle {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(10px, -15px) scale(1.2); }
+    50% { transform: translate(-5px, -25px) scale(0.8); }
+    75% { transform: translate(-10px, -10px) scale(1.1); }
+  }
+
+  @keyframes holoScan {
+    0% { transform: translateY(-50px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(350px); opacity: 0; }
+  }
+
+  @keyframes hubPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.5); opacity: 0.2; }
+  }
+
+  @keyframes dataCardFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+  }
+
+  @keyframes sensorPulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(2); opacity: 0.1; }
+  }
+
+  /* Particle Animations */
+  .proptech-hero-visual .particle {
+    animation: floatParticle 8s ease-in-out infinite;
+  }
+
+  .proptech-hero-visual .particle-1 { animation-delay: 0s; }
+  .proptech-hero-visual .particle-2 { animation-delay: 1s; }
+  .proptech-hero-visual .particle-3 { animation-delay: 2s; }
+  .proptech-hero-visual .particle-4 { animation-delay: 3s; }
+  .proptech-hero-visual .particle-5 { animation-delay: 4s; }
+  .proptech-hero-visual .particle-6 { animation-delay: 5s; }
+
+  /* Holographic Scanning */
+  .proptech-hero-visual .holo-scan-1 {
+    animation: holoScan 4s ease-in-out 5s infinite;
+  }
+
+  .proptech-hero-visual .holo-scan-2 {
+    animation: holoScan 4s ease-in-out 6s infinite;
+  }
+
+  .proptech-hero-visual .holo-scan-3 {
+    animation: holoScan 4s ease-in-out 7s infinite;
+  }
+
+  /* Enhanced Hub Effects */
+  .proptech-hero-visual .hub-ring {
+    animation: hubPulse 2s ease-in-out infinite;
+  }
+
+  /* Property Data Card Animations */
+  .proptech-hero-visual .data-card {
+    animation: dataCardFloat 3s ease-in-out infinite;
+  }
+
+  .proptech-hero-visual .sqft-card { animation-delay: 0.5s; }
+  .proptech-hero-visual .value-card { animation-delay: 1s; }
+  .proptech-hero-visual .energy-card { animation-delay: 1.5s; }
+
+  /* Sensor Pulse Rings */
+  .proptech-hero-visual .sensor-pulse {
+    animation: sensorPulse 2s ease-in-out infinite;
+  }
+
+  .proptech-hero-visual .temp-pulse { animation-delay: 0s; }
+  .proptech-hero-visual .motion-pulse { animation-delay: 0.7s; }
+  .proptech-hero-visual .light-pulse { animation-delay: 1.4s; }
+
   /* Accessibility - Reduced Motion */
   @media (prefers-reduced-motion: reduce) {
     .proptech-hero-visual.active .grid-bg { 
@@ -357,11 +446,21 @@
     .proptech-hero-visual.active .reality-layer,
     .proptech-hero-visual.active .furniture-layer,
     .proptech-hero-visual.active .smart-layer,
-    .proptech-hero-visual.active .hub-layer { 
+    .proptech-hero-visual.active .hub-layer,
+    .proptech-hero-visual.active .particles-layer,
+    .proptech-hero-visual.active .holo-layer,
+    .proptech-hero-visual.active .depth-layer { 
       opacity: 1; 
       animation: none; 
     }
-    .proptech-hero-visual .sensor { 
+    .proptech-hero-visual .sensor,
+    .proptech-hero-visual .particle,
+    .proptech-hero-visual .holo-scan-1,
+    .proptech-hero-visual .holo-scan-2,
+    .proptech-hero-visual .holo-scan-3,
+    .proptech-hero-visual .hub-ring,
+    .proptech-hero-visual .data-card,
+    .proptech-hero-visual .sensor-pulse { 
       animation: none; 
     }
     .proptech-hero-visual.active .data-flow-1,

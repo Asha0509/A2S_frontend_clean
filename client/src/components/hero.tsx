@@ -88,7 +88,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 to-blue-50" data-testid="hero-section">
+      <section className="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20" data-testid="hero-section">
         {/* CSS Animated Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="animated-background"></div>
@@ -164,8 +164,32 @@ export default function Hero() {
                       
                       {/* Grid Pattern */}
                       <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a3b8" strokeWidth="0.5" opacity="0.3"/>
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a3b8" strokeWidth="0.5" opacity="0.2"/>
                       </pattern>
+                      
+                      {/* Particle System */}
+                      <radialGradient id="particleGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                      </radialGradient>
+                      
+                      {/* Holographic Effect */}
+                      <linearGradient id="holoScan" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor="rgba(59,130,246,0)" />
+                        <stop offset="45%" stopColor="rgba(59,130,246,0)" />
+                        <stop offset="50%" stopColor="rgba(59,130,246,0.8)" />
+                        <stop offset="55%" stopColor="rgba(59,130,246,0)" />
+                        <stop offset="100%" stopColor="rgba(59,130,246,0)" />
+                      </linearGradient>
+                      
+                      {/* Property Data Glow */}
+                      <filter id="dataGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                        <feMerge> 
+                          <feMergeNode in="coloredBlur"/>
+                          <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                      </filter>
                       
                       {/* Pulse Effect */}
                       <filter id="glow">
@@ -277,15 +301,39 @@ export default function Hero() {
                       <path d="M 300 110 Q 250 95 200 90" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.5" className="data-flow-2" />
                     </g>
                     
-                    {/* A2S Hub Badge */}
+                    {/* Floating Particles System */}
+                    <g className="particles-layer" opacity="0">
+                      <circle cx="80" cy="100" r="2" fill="#3b82f6" opacity="0.6" className="particle particle-1" />
+                      <circle cx="320" cy="140" r="1.5" fill="#10b981" opacity="0.4" className="particle particle-2" />
+                      <circle cx="150" cy="70" r="1" fill="#f59e0b" opacity="0.5" className="particle particle-3" />
+                      <circle cx="250" cy="200" r="2.5" fill="#8b5cf6" opacity="0.3" className="particle particle-4" />
+                      <circle cx="100" cy="240" r="1.8" fill="#ef4444" opacity="0.4" className="particle particle-5" />
+                      <circle cx="340" cy="90" r="1.2" fill="#06b6d4" opacity="0.6" className="particle particle-6" />
+                    </g>
+
+                    {/* A2S Hub Badge - Enhanced */}
                     <g className="hub-layer" opacity="0">
-                      <rect x="170" y="40" width="60" height="24" rx="12" fill="rgba(59,130,246,0.1)" stroke="#3b82f6" strokeWidth="1" className="hub-badge"/>
-                      <text x="200" y="54" textAnchor="middle" fill="#3b82f6" fontSize="10" fontWeight="600" className="hub-text">A2S</text>
-                      <circle cx="185" cy="52" r="2" fill="#10b981" className="hub-indicator" />
+                      <rect x="165" y="35" width="70" height="30" rx="15" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" strokeWidth="2" className="hub-badge" filter="url(#dataGlow)"/>
+                      <text x="200" y="54" textAnchor="middle" fill="#3b82f6" fontSize="12" fontWeight="700" className="hub-text">A2S PLATFORM</text>
+                      <circle cx="180" cy="52" r="3" fill="#10b981" className="hub-indicator" />
+                      <circle cx="180" cy="52" r="6" fill="none" stroke="#10b981" strokeWidth="1" opacity="0.5" className="hub-ring" />
                     </g>
                     
-                    {/* AR Overlay Effect */}
+                    {/* Holographic Scan Lines */}
+                    <g className="holo-layer" opacity="0">
+                      <rect x="0" y="0" width="400" height="4" fill="url(#holoScan)" className="holo-scan-1" />
+                      <rect x="0" y="50" width="400" height="2" fill="rgba(59,130,246,0.4)" className="holo-scan-2" />
+                      <rect x="0" y="150" width="400" height="3" fill="rgba(16,185,129,0.3)" className="holo-scan-3" />
+                    </g>
+                    
+                    {/* AR Overlay Effect - Enhanced */}
                     <rect x="0" y="0" width="400" height="300" fill="url(#arSweep)" opacity="0" className="ar-sweep"/>
+                    
+                    {/* 3D Depth Lines */}
+                    <g className="depth-layer" opacity="0">
+                      <path d="M 50 80 L 45 75 M 350 80 L 355 75 M 50 200 L 45 205 M 350 200 L 355 205" 
+                            stroke="#3b82f6" strokeWidth="1" opacity="0.4" className="depth-lines" />
+                    </g>
                     
                   </svg>
                 </div>
