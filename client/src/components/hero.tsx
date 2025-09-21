@@ -88,28 +88,36 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20" data-testid="hero-section">
-        {/* CSS Animated Background */}
+      <section className="relative overflow-hidden py-20 lg:py-32 bg-gradient-to-br from-teal-100 via-teal-50 to-purple-100" data-testid="hero-section">
+        {/* Floating geometric shapes background */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="animated-background"></div>
+          <div className="floating-shapes">
+            <div className="shape shape-1"></div>
+            <div className="shape shape-2"></div>
+            <div className="shape shape-3"></div>
+            <div className="shape shape-4"></div>
+          </div>
         </div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
             <div className="max-w-xl lg:max-w-none">
-              <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-blue-600 to-emerald-600 bg-clip-text text-transparent leading-tight mb-6" data-testid="hero-headline">
-                Every house deserves to be more than just four walls. We built A2S to make it possible.
-              </h1>
-              <p className="text-xl text-slate-600 mb-8 leading-relaxed" data-testid="hero-subheadline">
-                From empty rooms to living stories. Why guess your space when you can experience it?
-              </p>
+              {/* Animated text overlays */}
+              <div className="hero-text-container">
+                <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-blue-600 to-emerald-600 bg-clip-text text-transparent leading-tight mb-6 hero-text-1" data-testid="hero-headline">
+                  Discover your dream space
+                </h1>
+                <p className="text-xl text-slate-600 mb-8 leading-relaxed hero-text-2" data-testid="hero-subheadline">
+                  Visualize it before you buy
+                </p>
+              </div>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={() => setShowUserForm(true)}
-                  className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+                  className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 pulse-cta"
                   data-testid="button-get-started"
                 >
-                  Get Started <ArrowRight className="w-5 h-5" />
+                  Join Waitlist <ArrowRight className="w-5 h-5" />
                 </Button>
                 <Button 
                   onClick={() => setShowVendorForm(true)}
@@ -122,217 +130,103 @@ export default function Hero() {
               </div>
             </div>
             
-            {/* Blueprint to Reality PropTech Animation */}
+            {/* Simple 2.5D Room Animation */}
             <div className="mt-12 lg:mt-0">
               <div className="relative h-96 lg:h-[500px] flex items-center justify-center">
                 {/* Main Animation Container */}
                 <div 
                   ref={heroVisualRef}
-                  className="proptech-hero-visual w-full h-full max-w-lg transition-transform duration-300 ease-out" 
-                  data-testid="proptech-animation"
+                  className="simple-room-visual w-full h-full max-w-lg transition-transform duration-300 ease-out" 
+                  data-testid="room-animation"
                 >
                   <svg 
                     viewBox="0 0 400 300" 
-                    className="w-full h-full drop-shadow-2xl"
-                    style={{ filter: 'drop-shadow(0 25px 50px rgba(0,0,0,0.15))' }}
+                    className="w-full h-full drop-shadow-lg"
                   >
                     <defs>
-                      {/* Gradients */}
-                      <linearGradient id="wallGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#f8fafc" />
+                      <linearGradient id="roomGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f1f5f9" />
                         <stop offset="100%" stopColor="#e2e8f0" />
                       </linearGradient>
                       <linearGradient id="floorGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#1e293b" />
-                        <stop offset="100%" stopColor="#334155" />
+                        <stop offset="0%" stopColor="#cbd5e1" />
+                        <stop offset="100%" stopColor="#94a3b8" />
                       </linearGradient>
-                      <radialGradient id="lightGradient" cx="50%" cy="30%" r="70%">
-                        <stop offset="0%" stopColor="#fbbf24" stopOpacity="0.8" />
-                        <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.3" />
-                      </radialGradient>
-                      <linearGradient id="sofaGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#3b82f6" />
-                        <stop offset="100%" stopColor="#1d4ed8" />
-                      </linearGradient>
-                      
-                      {/* AR Sweep Gradient */}
-                      <linearGradient id="arSweep" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="rgba(59,130,246,0)" />
-                        <stop offset="50%" stopColor="rgba(59,130,246,0.3)" />
-                        <stop offset="100%" stopColor="rgba(59,130,246,0)" />
-                      </linearGradient>
-                      
-                      {/* Grid Pattern */}
-                      <pattern id="gridPattern" width="20" height="20" patternUnits="userSpaceOnUse">
-                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#94a3b8" strokeWidth="0.5" opacity="0.2"/>
-                      </pattern>
-                      
-                      {/* Particle System */}
-                      <radialGradient id="particleGlow" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-                      </radialGradient>
-                      
-                      {/* Holographic Effect */}
-                      <linearGradient id="holoScan" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stopColor="rgba(59,130,246,0)" />
-                        <stop offset="45%" stopColor="rgba(59,130,246,0)" />
-                        <stop offset="50%" stopColor="rgba(59,130,246,0.8)" />
-                        <stop offset="55%" stopColor="rgba(59,130,246,0)" />
-                        <stop offset="100%" stopColor="rgba(59,130,246,0)" />
-                      </linearGradient>
-                      
-                      {/* Property Data Glow */}
-                      <filter id="dataGlow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                        <feMerge> 
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                      </filter>
-                      
-                      {/* Pulse Effect */}
-                      <filter id="glow">
-                        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-                        <feMerge> 
-                          <feMergeNode in="coloredBlur"/>
-                          <feMergeNode in="SourceGraphic"/>
-                        </feMerge>
-                      </filter>
                     </defs>
                     
-                    {/* Background Grid */}
-                    <rect width="400" height="300" fill="url(#gridPattern)" className="grid-bg" opacity="0"/>
-                    
-                    {/* Room Structure - Blueprint Phase */}
-                    <g className="blueprint-layer">
+                    {/* Simple 2.5D Room Outline */}
+                    <g className="room-walls">
                       {/* Floor */}
                       <path 
-                        d="M 50 200 L 350 200 L 320 250 L 80 250 Z" 
-                        fill="none" 
-                        stroke="#3b82f6" 
+                        d="M 80 200 L 320 200 L 300 240 L 100 240 Z" 
+                        fill="url(#floorGradient)"
+                        stroke="#64748b" 
                         strokeWidth="2"
-                        className="blueprint-floor"
-                        strokeDasharray="800"
-                        strokeDashoffset="800"
+                        className="room-floor draw-line"
+                        opacity="0"
                       />
                       
                       {/* Back Wall */}
                       <path 
-                        d="M 50 200 L 350 200 L 350 80 L 50 80 Z" 
-                        fill="none" 
-                        stroke="#3b82f6" 
+                        d="M 80 200 L 320 200 L 320 80 L 80 80 Z" 
+                        fill="url(#roomGradient)"
+                        stroke="#64748b" 
                         strokeWidth="2"
-                        className="blueprint-wall"
-                        strokeDasharray="600"
-                        strokeDashoffset="600"
+                        className="room-back-wall draw-line"
+                        opacity="0"
                       />
                       
-                      {/* Side Walls */}
+                      {/* Side Wall */}
                       <path 
-                        d="M 50 200 L 80 250 L 80 130 L 50 80 Z" 
-                        fill="none" 
-                        stroke="#3b82f6" 
+                        d="M 80 200 L 100 240 L 100 120 L 80 80 Z" 
+                        fill="#e2e8f0"
+                        stroke="#64748b" 
                         strokeWidth="2"
-                        className="blueprint-side"
-                        strokeDasharray="400"
-                        strokeDashoffset="400"
+                        className="room-side-wall draw-line"
+                        opacity="0"
                       />
                     </g>
                     
-                    {/* Room Structure - Reality Phase */}
-                    <g className="reality-layer" opacity="0" style={{ willChange: 'transform' }}>
-                      <g className="room-3d-group">
-                        {/* Floor */}
-                        <path 
-                          d="M 50 200 L 350 200 L 320 250 L 80 250 Z" 
-                          fill="url(#floorGradient)"
-                          className="room-floor"
-                        />
-                        
-                        {/* Back Wall */}
-                        <path 
-                          d="M 50 200 L 350 200 L 350 80 L 50 80 Z" 
-                          fill="url(#wallGradient)"
-                          className="room-wall"
-                        />
-                        
-                        {/* Side Wall */}
-                        <path 
-                          d="M 50 200 L 80 250 L 80 130 L 50 80 Z" 
-                          fill="url(#wallGradient)"
-                          className="room-side"
-                          opacity="0.8"
-                        />
+                    {/* Furniture Icons */}
+                    <g className="furniture-icons">
+                      {/* Chair */}
+                      <g className="furniture-item chair" transform="translate(-50, 0)">
+                        <rect x="120" y="160" width="30" height="30" rx="5" fill="#3b82f6" opacity="0.8"/>
+                        <rect x="125" y="155" width="20" height="10" rx="2" fill="#2563eb"/>
+                      </g>
+                      
+                      {/* Table */}
+                      <g className="furniture-item table" transform="translate(50, 0)">
+                        <ellipse cx="200" cy="180" rx="25" ry="15" fill="#8b5cf6" opacity="0.8"/>
+                        <rect x="195" y="180" width="10" height="20" fill="#7c3aed"/>
+                      </g>
+                      
+                      {/* Plant */}
+                      <g className="furniture-item plant" transform="translate(50, 0)">
+                        <ellipse cx="280" cy="170" rx="8" ry="5" fill="#dc2626"/>
+                        <path d="M 280 170 Q 275 155 280 145 Q 285 155 280 170" fill="#10b981"/>
                       </g>
                     </g>
                     
-                    {/* Furniture - Reality Phase */}
-                    <g className="furniture-layer" opacity="0">
-                      {/* Sofa */}
-                      <rect x="120" y="180" width="80" height="15" rx="7" fill="url(#sofaGradient)" className="sofa"/>
-                      <rect x="125" y="175" width="70" height="8" rx="4" fill="#2563eb" className="sofa-back"/>
-                      
-                      {/* Coffee Table */}
-                      <ellipse cx="200" cy="220" rx="25" ry="12" fill="#8b5cf6" className="table"/>
-                      
-                      {/* Plant */}
-                      <ellipse cx="280" cy="190" rx="8" ry="4" fill="#dc2626" className="pot"/>
-                      <path d="M 280 190 Q 275 175 280 160 Q 285 175 280 190" fill="#10b981" className="plant"/>
-                      
-                      {/* Pendant Light */}
-                      <circle cx="200" cy="100" r="8" fill="#f59e0b" className="light-fixture"/>
-                      <circle cx="200" cy="140" r="20" fill="url(#lightGradient)" opacity="0.6" className="light-glow"/>
+                    {/* AI Recommendation Dots */}
+                    <g className="ai-dots">
+                      <circle className="ai-dot dot-1" cx="135" cy="175" r="3" fill="#fbbf24" opacity="0"/>
+                      <circle className="ai-dot dot-2" cx="200" cy="180" r="3" fill="#fbbf24" opacity="0"/>
+                      <circle className="ai-dot dot-3" cx="280" cy="160" r="3" fill="#fbbf24" opacity="0"/>
                     </g>
                     
-                    {/* Smart Tech Sensors */}
-                    <g className="smart-layer" opacity="0">
-                      {/* Temperature Sensor */}
-                      <circle cx="100" cy="120" r="3" fill="#ef4444" className="sensor temp-sensor" />
-                      
-                      {/* Motion Sensor */}
-                      <circle cx="300" cy="110" r="3" fill="#22c55e" className="sensor motion-sensor" />
-                      
-                      {/* Light Sensor */}
-                      <circle cx="200" cy="90" r="3" fill="#eab308" className="sensor light-sensor" />
-                      
-                      {/* Data Flow Lines - CSS animations only */}
-                      <path d="M 100 120 Q 150 100 200 90" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.5" className="data-flow-1" />
-                      <path d="M 300 110 Q 250 95 200 90" fill="none" stroke="#10b981" strokeWidth="2" opacity="0.5" className="data-flow-2" />
+                    {/* AI Sidebar */}
+                    <g className="ai-sidebar">
+                      <rect x="350" y="80" width="40" height="120" rx="10" fill="rgba(59,130,246,0.1)" stroke="#3b82f6" strokeWidth="2" opacity="0" className="sidebar-bg"/>
+                      <text x="370" y="100" textAnchor="middle" fill="#3b82f6" fontSize="8" fontWeight="600" opacity="0" className="sidebar-text">AI</text>
+                      <text x="370" y="115" textAnchor="middle" fill="#3b82f6" fontSize="8" fontWeight="600" opacity="0" className="sidebar-text">RECS</text>
                     </g>
                     
-                    {/* Floating Particles System */}
-                    <g className="particles-layer" opacity="0">
-                      <circle cx="80" cy="100" r="2" fill="#3b82f6" opacity="0.6" className="particle particle-1" />
-                      <circle cx="320" cy="140" r="1.5" fill="#10b981" opacity="0.4" className="particle particle-2" />
-                      <circle cx="150" cy="70" r="1" fill="#f59e0b" opacity="0.5" className="particle particle-3" />
-                      <circle cx="250" cy="200" r="2.5" fill="#8b5cf6" opacity="0.3" className="particle particle-4" />
-                      <circle cx="100" cy="240" r="1.8" fill="#ef4444" opacity="0.4" className="particle particle-5" />
-                      <circle cx="340" cy="90" r="1.2" fill="#06b6d4" opacity="0.6" className="particle particle-6" />
-                    </g>
-
-                    {/* A2S Hub Badge - Enhanced */}
-                    <g className="hub-layer" opacity="0">
-                      <rect x="165" y="35" width="70" height="30" rx="15" fill="rgba(59,130,246,0.15)" stroke="#3b82f6" strokeWidth="2" className="hub-badge" filter="url(#dataGlow)"/>
-                      <text x="200" y="54" textAnchor="middle" fill="#3b82f6" fontSize="12" fontWeight="700" className="hub-text">A2S PLATFORM</text>
-                      <circle cx="180" cy="52" r="3" fill="#10b981" className="hub-indicator" />
-                      <circle cx="180" cy="52" r="6" fill="none" stroke="#10b981" strokeWidth="1" opacity="0.5" className="hub-ring" />
-                    </g>
-                    
-                    {/* Holographic Scan Lines */}
-                    <g className="holo-layer" opacity="0">
-                      <rect x="0" y="0" width="400" height="4" fill="url(#holoScan)" className="holo-scan-1" />
-                      <rect x="0" y="50" width="400" height="2" fill="rgba(59,130,246,0.4)" className="holo-scan-2" />
-                      <rect x="0" y="150" width="400" height="3" fill="rgba(16,185,129,0.3)" className="holo-scan-3" />
-                    </g>
-                    
-                    {/* AR Overlay Effect - Enhanced */}
-                    <rect x="0" y="0" width="400" height="300" fill="url(#arSweep)" opacity="0" className="ar-sweep"/>
-                    
-                    {/* 3D Depth Lines */}
-                    <g className="depth-layer" opacity="0">
-                      <path d="M 50 80 L 45 75 M 350 80 L 355 75 M 50 200 L 45 205 M 350 200 L 355 205" 
-                            stroke="#3b82f6" strokeWidth="1" opacity="0.4" className="depth-lines" />
+                    {/* Glowing Dot Paths */}
+                    <g className="dot-paths">
+                      <path d="M 135 175 Q 200 150 350 140" fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0" className="glow-path path-1"/>
+                      <path d="M 200 180 Q 250 160 350 150" fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0" className="glow-path path-2"/>
+                      <path d="M 280 160 Q 300 140 350 160" fill="none" stroke="#fbbf24" strokeWidth="2" opacity="0" className="glow-path path-3"/>
                     </g>
                     
                   </svg>

@@ -4,17 +4,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Animated Background */
-.animated-background {
+/* Floating Geometric Shapes Background */
+.floating-shapes {
   position: absolute;
   inset: 0;
-  background: 
-    radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 75% 25%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 25% 75%, rgba(236, 72, 153, 0.15) 0%, transparent 50%);
-  background-size: 200% 200%, 200% 200%, 200% 200%, 200% 200%;
-  animation: gradientShift 12s ease-in-out infinite;
+  overflow: hidden;
+}
+
+.floating-shapes .shape {
+  position: absolute;
+  background: rgba(59, 130, 246, 0.1);
+  border-radius: 20%;
+  animation: floatShape 8s ease-in-out infinite;
+}
+
+.floating-shapes .shape-1 {
+  width: 60px;
+  height: 60px;
+  top: 10%;
+  left: 15%;
+  animation-delay: 0s;
+  border-radius: 50%;
+  background: rgba(20, 184, 166, 0.15);
+}
+
+.floating-shapes .shape-2 {
+  width: 80px;
+  height: 80px;
+  top: 60%;
+  right: 20%;
+  animation-delay: 2s;
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.floating-shapes .shape-3 {
+  width: 40px;
+  height: 40px;
+  top: 30%;
+  right: 10%;
+  animation-delay: 4s;
+  border-radius: 10px;
+  background: rgba(20, 184, 166, 0.12);
+}
+
+.floating-shapes .shape-4 {
+  width: 70px;
+  height: 70px;
+  bottom: 20%;
+  left: 10%;
+  animation-delay: 6s;
+  border-radius: 30px;
+  background: rgba(139, 92, 246, 0.12);
 }
 
 @keyframes gradientShift {
@@ -184,6 +224,101 @@
 
 @layer utilities {
   /* Custom Animations */
+  /* New Simple Hero Animation Keyframes */
+  @keyframes floatShape {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(5deg);
+    }
+  }
+
+  @keyframes fadeUpSequential {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes drawLine {
+    from {
+      opacity: 0;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+    to {
+      opacity: 1;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes slideInFromSide {
+    from {
+      transform: translateX(-100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInFromRight {
+    from {
+      transform: translateX(100px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes dotTravel {
+    0% {
+      stroke-dashoffset: 200;
+      opacity: 1;
+    }
+    100% {
+      stroke-dashoffset: 0;
+      opacity: 1;
+    }
+  }
+
+  @keyframes dotMove {
+    0% {
+      offset-distance: 0%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      offset-distance: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulseCTA {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+    }
+    50% {
+      transform: scale(1.02);
+      box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+    }
+  }
+
   @keyframes float {
     0%, 100% {
       transform: translateY(0px);
@@ -431,8 +566,137 @@
   .proptech-hero-visual .motion-pulse { animation-delay: 0.7s; }
   .proptech-hero-visual .light-pulse { animation-delay: 1.4s; }
 
+  /* Simple Room Animation Classes */
+  .hero-text-1 {
+    opacity: 0;
+    animation: fadeUpSequential 1s ease-out 0.5s forwards;
+  }
+
+  .hero-text-2 {
+    opacity: 0;
+    animation: fadeUpSequential 1s ease-out 1.5s forwards;
+  }
+
+  .pulse-cta {
+    animation: pulseCTA 2s ease-in-out infinite;
+    animation-delay: 3s;
+  }
+
+  /* Room Animation */
+  .simple-room-visual.active .draw-line {
+    animation: drawLine 1.2s ease-out forwards;
+  }
+
+  .simple-room-visual.active .room-floor {
+    animation-delay: 0.5s;
+  }
+
+  .simple-room-visual.active .room-back-wall {
+    animation-delay: 1.0s;
+  }
+
+  .simple-room-visual.active .room-side-wall {
+    animation-delay: 1.5s;
+  }
+
+  /* Furniture Animations */
+  .simple-room-visual.active .furniture-item {
+    opacity: 0;
+    animation: slideInFromSide 0.8s ease-out forwards;
+  }
+
+  .simple-room-visual.active .chair {
+    animation-delay: 2.2s;
+  }
+
+  .simple-room-visual.active .table {
+    animation: slideInFromRight 0.8s ease-out 2.6s forwards;
+  }
+
+  .simple-room-visual.active .plant {
+    animation: slideInFromRight 0.8s ease-out 3.0s forwards;
+  }
+
+  /* AI Dots and Paths - Proper Travel Animation */
+  .simple-room-visual.active .ai-dot {
+    filter: drop-shadow(0 0 4px currentColor);
+    animation: dotMove 2s ease-in-out forwards;
+  }
+
+  .simple-room-visual.active .dot-1 {
+    offset-path: path('M 135 175 Q 200 150 350 140');
+    animation-delay: 4.0s;
+  }
+
+  .simple-room-visual.active .dot-2 {
+    offset-path: path('M 200 180 Q 250 160 350 150');
+    animation-delay: 4.3s;
+  }
+
+  .simple-room-visual.active .dot-3 {
+    offset-path: path('M 280 160 Q 300 140 350 160');
+    animation-delay: 4.6s;
+  }
+
+  .simple-room-visual.active .glow-path {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    stroke-linecap: round;
+    animation: dotTravel 2s ease-in-out forwards;
+  }
+
+  .simple-room-visual.active .path-1 {
+    animation-delay: 4.0s;
+  }
+
+  .simple-room-visual.active .path-2 {
+    animation-delay: 4.3s;
+  }
+
+  .simple-room-visual.active .path-3 {
+    animation-delay: 4.6s;
+  }
+
+  /* AI Sidebar */
+  .simple-room-visual.active .sidebar-bg,
+  .simple-room-visual.active .sidebar-text {
+    animation: fadeIn 0.6s ease-out 5.0s forwards;
+  }
+
   /* Accessibility - Reduced Motion */
   @media (prefers-reduced-motion: reduce) {
+    .floating-shapes .shape {
+      animation: none;
+    }
+    
+    .hero-text-1,
+    .hero-text-2 {
+      opacity: 1;
+      animation: none;
+    }
+    
+    .pulse-cta {
+      animation: none;
+    }
+    
+    .simple-room-visual.active .draw-line {
+      opacity: 1;
+      animation: none;
+    }
+    
+    .simple-room-visual.active .furniture-item {
+      opacity: 1;
+      animation: none;
+    }
+    
+    .simple-room-visual.active .ai-dot,
+    .simple-room-visual.active .glow-path,
+    .simple-room-visual.active .sidebar-bg,
+    .simple-room-visual.active .sidebar-text {
+      opacity: 1;
+      animation: none;
+    }
+    
     .proptech-hero-visual.active .grid-bg { 
       opacity: 0.3; 
       animation: none; 
