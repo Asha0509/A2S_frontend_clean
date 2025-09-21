@@ -133,10 +133,10 @@ export default function Hero() {
               {/* Animated text overlays */}
               <div className="hero-text-container">
                 <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-slate-800 via-blue-600 to-emerald-600 bg-clip-text text-transparent leading-tight mb-6 hero-text-1" data-testid="hero-headline">
-                  Discover your dream space
+                  Every house deserves to be more than just four walls. We built A2S to make it possible.
                 </h1>
                 <p className="text-xl text-slate-600 mb-8 leading-relaxed hero-text-2" data-testid="hero-subheadline">
-                  Visualize it before you buy
+                  From empty rooms to living stories. Why guess your space when you can experience it?
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -145,7 +145,7 @@ export default function Hero() {
                   className="bg-gradient-to-r from-blue-600 to-emerald-600 hover:from-blue-700 hover:to-emerald-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2 pulse-cta"
                   data-testid="button-get-started"
                 >
-                  Join Waitlist <ArrowRight className="w-5 h-5" />
+                  Get Started <ArrowRight className="w-5 h-5" />
                 </Button>
                 <Button 
                   onClick={() => setShowVendorForm(true)}
